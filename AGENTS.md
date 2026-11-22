@@ -1,0 +1,38 @@
+# Instruções do projeto
+
+## Continuidade pelo GitHub — orientação do proprietário em 22/11/2026
+
+O GitHub é o canal de continuidade deste projeto entre computadores. Em uma conversa nova ou ao retomar depois de trabalhar em outra máquina, execute a conferência abaixo antes de editar. Ao encerrar uma tarefa com mudanças, publique o trabalho revisado e as informações necessárias para a próxima conversa, sem aguardar outro pedido de commit/push.
+
+### Ao começar
+
+1. Leia este AGENTS.md, CONTINUIDADE.md e os documentos de estado/manutenção indicados ali. Use o histórico acessível da conversa atual; não invente acesso a chats antigos. O resumo versionado complementa o chat, mas não é uma cópia automática de todo o histórico do Codex.
+2. Confirme máquina, pasta canônica, branch ativa, worktrees, URLs efetivas de fetch/push e destino autorizado. Confira alterações locais, índice/staging, arquivos ignorados necessários e operações Git em andamento. Preserve a branch escolhida; não trocar para main só por ser a padrão.
+3. Consulte o GitHub atual, sem depender apenas de referências em cache. Busque explicitamente a mesma branch de origin, sem tags automáticas. Se houver outra tarefa ativa, staging prévio, edição concorrente ou operação Git pendente, preserve o estado e adie a mutação. Para transferir trabalho entre máquinas, exija estabilidade por pelo menos 120 segundos e faça snapshot recuperável fora do checkout antes de modificar índice, arquivos ou referências; dados privados exigem snapshot cifrado.
+4. Receba a atualização somente se a pasta estiver limpa, HEAD for ancestral do remoto e não houver colisões com arquivos locais ignorados/não rastreados: use `git merge --ff-only --no-overwrite-ignore <SHA-buscado>`. Desabilite hooks durante operações de continuidade com `git -c core.hooksPath=/dev/null`. Não usar reset destrutivo, clean, force push, descarte de stash, substituição de pasta nem escolher um lado automaticamente. Divergência exige preservar os dois históricos e comunicar o ponto de integração.
+5. Se GitHub/autenticação/rede estiver indisponível, informe que a versão mais recente não foi confirmada. Trabalho offline só prossegue de forma explícita, preservando a base local e sem afirmar sincronização.
+
+### Ao concluir
+
+1. Revise o diff, arquivos novos, árvore final e todo o histórico ainda não publicado, inclusive segredos que tenham sido removidos em commits posteriores. Preserve staging/trabalho alheio. Execute os testes e revisões que se aplicam ao tipo de mudança; não declarar verificações não executadas.
+2. Atualize CONTINUIDADE.md e os documentos de estado já usados pelo projeto com pedido, resultado, decisões, branch/base, verificações realmente executadas, pendências e próximo passo. Mantenha datas e referências verificáveis; nunca registrar senha, token, dados pessoais de clientes, sessão ou log bruto. Não duplicar histórico de produto nem alterar notas já publicadas apenas para registrar uma sincronização.
+3. Em entregas de produto, aplique a política de versão e notas própria do repositório e confira os artefatos exigidos. Uma consulta, transferência ou atualização das regras de continuidade não cria nova versão do aplicativo, build, release ou deploy por si só; registre a revisão documental separadamente. Se não houve mudança, não crie commit vazio ou versão artificial.
+4. Confira hooks, workflows e integrações conhecidas antes do push. Publicação de código não autoriza deploy, loja, serviços externos, produção, operações financeiras ou retomada de automações. Preserve autorizações e limites específicos de cada projeto; bloqueie um push que dispararia ação externa fora desse escopo.
+5. Com índice inicialmente limpo, prepare somente arquivos revisados, vincule o commit aos bytes conferidos e confirme a árvore. Envie somente o SHA revisado para a branch correspondente de origin, com refspec explícito `SHA:refs/heads/branch`, sem force, mirror ou tags automáticas. Reconfira o remoto e relate o SHA confirmado. Em falha, preserve o checkpoint e informe que ainda não foi enviado.
+6. Arquivos privados necessários à continuidade ficam em backup age criptografado no repositório privado de backups, com a chave separada do GitHub; verifique download e restauração. Não substituir uma configuração privada diferente no outro computador automaticamente. Dependências e credenciais instaladas são verificações separadas da igualdade do código.
+
+Estas são instruções para o agente durante as conversas, não um serviço de sincronização em segundo plano. As agendas de sincronização anteriores permanecem pausadas. Não criar cron, LaunchAgent ou reativar automações. Usar cópias locais de trabalho; iCloud é destino de backup. O repositório privado `dekworld/Codex-Configuracao` reúne o roteiro de recuperação de ambiente; a restauração ainda exige autenticação e permissões do sistema quando aplicável.
+
+### Versão obrigatória em todos os projetos
+
+Pedido do proprietário em 22/11/2026: todo projeto deve ter uma versão identificável para continuar em qualquer máquina. Use a fonte de versão indicada em CONTINUIDADE.md; não criar contadores paralelos quando já houver versão nativa do produto. Em projetos sem controle formal, iniciar `VERSION` em `1.0.0` como base documental do código existente, sem alegar nova homologação funcional.
+
+Toda entrega real deve registrar versão, mudanças, motivo, verificações e limites no histórico do projeto; associar a versão ao commit revisado e confirmado no GitHub. Usar SemVer quando o projeto não definir outra convenção: correção compatível incrementa PATCH, funcionalidade compatível MINOR, quebra de compatibilidade MAJOR. A versão declarada, código, notas e artefatos de uma entrega devem corresponder. Não reutilizar uma versão publicada para outro conteúdo de produto nem reescrever notas publicadas. Abrir/retomar conversa, consultar GitHub ou copiar a mesma versão não aumenta a versão do aplicativo. Revisões documentais do fluxo têm data própria e não alegam build, release ou deploy. Se faltar acesso, houver trabalho concorrente ou validação pendente, preservar o checkpoint e declarar a entrega pendente.
+
+### Projetos novos
+
+Por pedido explícito do proprietário em 22/11/2026, criar um projeto novo inclui preparar seu repositório no GitHub, sem aguardar outro pedido de publicação. Primeiro verificar se já há repositório e pasta correspondentes; reutilizar os corretos, sem duplicar um projeto por abrir outra conversa. A conta atualmente confirmada é `dekworld`; validar o destino autenticado antes da criação e preservar repositórios de terceiros/upstream.
+
+Na ausência de repositório, criar um **repositório privado** por padrão e uma pasta local própria. Não tornar público sem autorização específica. Inicializar README com propósito e preparo do ambiente, AGENTS com estas regras e limites próprios, CONTINUIDADE com estado/próximo passo, fonte canônica de versão (VERSION 1.0.0 se não houver convenção própria), histórico de mudanças e .gitignore apropriado. Revisar arquivos e segredos antes do primeiro commit; publicar somente conteúdo autorizado e conferir a branch/SHA remoto. Configurações privadas necessárias devem ser cifradas separadamente, nunca publicadas em texto aberto.
+
+Registrar o projeto no catálogo `dekworld/Codex-Configuracao`, incluindo repositório, branch, caminhos de trabalho e fonte da versão, sem dados de autenticação. Falha de acesso/criação/push deve ficar explícita, com os arquivos preservados; não anunciar repositório ou proteção inexistentes. Não criar repositório para uma simples consulta, documento avulso ou conversa sem pedido de criar projeto. Não inicializar um diretório agrupador como Projetos inteiro, nem criar automações/deploy por consequência.
